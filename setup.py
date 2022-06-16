@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name="biodataexplorer",
+    name="ffq-api",
     install_requires=[
         "fastapi",
         "ffq",

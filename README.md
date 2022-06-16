@@ -1,4 +1,4 @@
-# biodataexplorer
+# ffq-api
 
 ## Installation
 

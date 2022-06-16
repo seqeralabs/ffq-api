@@ -1,4 +1,4 @@
-# uvicorn biodataexplorer.app:app --reload
+# uvicorn ffq_api.app:app --reload
 
 from typing import Union
 
@@ -11,7 +11,7 @@ app = FastAPI()
 @app.get("/")
 def read_root(request: Request):
     return {
-        "message": "Welcome to the biodataexplorer API",
+        "message": "Welcome to the ffq API",
         "documentation_url": f"{request.url._url}docs",
     }
 

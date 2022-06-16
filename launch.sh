@@ -1,1 +1,1 @@
-uvicorn biodataexplorer.app:app --reload
+uvicorn ffq_api.app:app --reload
