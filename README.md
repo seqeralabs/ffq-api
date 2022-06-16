@@ -17,3 +17,5 @@ The server runs with FastAPI. There are [different ways](https://fastapi.tiangol
 ```
 
 The log should tell you the URL, but it's typically [`http://127.0.0.1:8000`](http://127.0.0.1:8000)
+
+You can find the interactive API documentation at the URL [`/docs`](http://127.0.0.1:8000/docs).
