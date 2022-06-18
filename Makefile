@@ -1,5 +1,5 @@
 registry ?= public.ecr.aws/seqera-labs
-tag ?= latest
+tag ?= $(shell cat VERSION)
 platform ?= linux/amd64
 
 build:
