@@ -1,0 +1,41 @@
+name: FFQ
+on:
+  push:
+    branches:
+      - 'master'
+    tags-ignore:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+jobs:
+  build:
+    if: "contains(github.event.head_commit.message, '[release]')"
+    name: Build FFQ
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Login to Public ECR
+        uses: docker/login-action@v2
+        with:
+          registry: public.ecr.aws
+          username: ${{ secrets.TOWER_CI_AWS_ACCESS }}
+          password: ${{ secrets.TOWER_CI_AWS_SECRET }}
+        env:
+          AWS_REGION: us-east-1
+
+      - name: Release
+        run: |
+          bash tag-and-push.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_SEQERA_TOKEN }}
+
