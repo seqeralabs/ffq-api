@@ -1,5 +1,19 @@
 # ffq-api
 
+Expose [ffq](https://github.com/pachterlab/ffq) searches via an API wrapper.
+
+## Get started 
+
+The query service is accessible via the endpoint  https://ffq.seqera.io/ffq and mimics the functionality of the `ffq` tool. 
+
+For example:
+
+```
+curl https://ffq.seqera.io/ffq/SRR9990627?aws=true | jq
+```
+
+See API docs at [this link](https://ffq.seqera.io/docs).
+
 ## Installation
 
 For now, clone the repo and install locally:
