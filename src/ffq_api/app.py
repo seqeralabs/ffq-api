@@ -1,5 +1,6 @@
 # uvicorn ffq_api.app:app --reload
 
+import re
 from typing import Union
 
 from fastapi import FastAPI, Request
@@ -15,9 +16,10 @@ def read_root(request: Request):
     }
 
 
-@app.get("/v1alpha1/{accession}")
-def read_item(accession: str, aws: bool = False):
-    accessions = ffq_main.validate_accessions([accession], ffq_main.SEARCH_TYPES)
+@app.get("/v1alpha1/{accession_str}")
+def read_item(accession_str: str, aws: bool = False):
+    accession_strs = re.split(';| |,', accession_str)
+    accessions = ffq_main.validate_accessions(accession_strs, ffq_main.SEARCH_TYPES)
     results = []
     for v in accessions:
         results.append(ffq_main.FFQ[v["prefix"]](v["accession"], 0))
