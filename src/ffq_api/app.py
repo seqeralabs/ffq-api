@@ -7,7 +7,6 @@ from ffq import main as ffq_main
 
 app = FastAPI()
 
-
 @app.get("/")
 def read_root(request: Request):
     return {
@@ -16,7 +15,7 @@ def read_root(request: Request):
     }
 
 
-@app.get("/ffq/{accession}")
+@app.get("/v1alpha1/{accession}")
 def read_item(accession: str, aws: bool = False):
     accessions = ffq_main.validate_accessions([accession], ffq_main.SEARCH_TYPES)
     results = []
