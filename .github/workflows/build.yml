@@ -24,23 +24,42 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Release container
-        if: "contains(github.event.head_commit.message, '[release]')"
-        uses: ./.github/actions/build
+      - name: Login to Public ECR
+        uses: docker/login-action@v2
         with:
           registry: "public.ecr.aws"
           username: ${{ secrets.TOWER_CI_AWS_ACCESS }}
           password: ${{ secrets.TOWER_CI_AWS_SECRET }}
-          aws-region: "us-east-1"
-          github-token: ${{ secrets.GH_SEQERA_TOKEN }}
-          
-      - name: Deploy container
+        env:
+          AWS_REGION: "us-east-1"
+
+      - name: Release container
+        if: "contains(github.event.head_commit.message, '[release]')"
+        shell: bash
+        run: |
+          bash tag-and-push.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_SEQERA_TOKEN }}
+
+      - name: Deploy container to prod cluster
         if: "contains(github.event.head_commit.message, '[deploy prod]')"
         uses: ./.github/actions/deploy
         with:
           app: "ffq-app"
           container: "public.ecr.aws/seqera-labs/ffq"
           namespace: "ffq-prod"
+          aws-region: "eu-west-2"
+          aws-access-key-id: ${{ secrets.TOWER_CI_AWS_ACCESS }}
+          aws-secret-access-key: ${{ secrets.TOWER_CI_AWS_SECRET }}
+          kube-config-data: ${{ secrets.KUBE_CONFIG_DATA_LONDON }}
+
+      - name: Deploy container to staging cluster
+        if: "contains(github.event.head_commit.message, '[deploy staging]')"
+        uses: ./.github/actions/deploy
+        with:
+          app: "ffq-app"
+          container: "public.ecr.aws/seqera-labs/ffq"
+          namespace: "ffq-staging"
           aws-region: "eu-west-2"
           aws-access-key-id: ${{ secrets.TOWER_CI_AWS_ACCESS }}
           aws-secret-access-key: ${{ secrets.TOWER_CI_AWS_SECRET }}
