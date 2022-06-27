@@ -1,0 +1,35 @@
+name: 'Build & push container image'
+inputs:
+  registry:
+    required: true
+    type: string
+  username:
+    required: true
+    type: string
+  password:
+    required: true
+    type: string
+  aws-region:
+    required: true
+    type: string
+  github-token:
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - name: Login to Public ECR
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+      env:
+        AWS_REGION: ${{ inputs.aws-region }}
+
+    - name: Release
+      shell: bash
+      run: |
+        bash tag-and-push.sh
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
