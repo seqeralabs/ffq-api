@@ -13,7 +13,7 @@
 
 # Tag and and push the the GitHub repo and Docker images
 #
-# - The tag is taken from the `VERSION` file in the project root
+# - The tag is taken from the `VERSION` file in the project src
 # - The tagging is enabled using putting the string `[release]` in the
 #   commit comment
 # - Use the string `[force release]` to override existing tag/images
@@ -30,8 +30,8 @@ ENTERPRISE=${ENTERPRISE:-$(git show -s --format='%s' | $SED -rn 's/.*\[(enterpri
 MARKETPLACE=${MARKETPLACE:-$(git show -s --format='%s' | $SED -rn 's/.*\[(marketplace)\].*/\1/p')}
 
 if [[ $RELEASE ]]; then
-  # take the version from the `build.gradle` file
-  TAG=v$(cat VERSION)
+  # take the version from the `VERSION` file
+  TAG=v$(cat ../src/ffq_api/VERSION)
   [[ $FORCE == 'force' ]] && FORCE='-f'
   # tag repo
   git tag $TAG $FORCE

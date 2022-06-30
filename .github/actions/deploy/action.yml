@@ -36,4 +36,4 @@ runs:
       env:
         KUBE_CONFIG_DATA: ${{ inputs.kube-config-data }}
       with:
-        args: set image deployment/${{inputs.app}} ${{inputs.app}}=${{inputs.container}}:$(cat VERSION) -n ${{inputs.namespace}}
+        args: set image deployment/${{inputs.app}} ${{inputs.app}}=${{inputs.container}}:$(cat src/ffq_api/VERSION) -n ${{inputs.namespace}}
