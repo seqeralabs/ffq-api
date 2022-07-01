@@ -1,11 +1,8 @@
 from setuptools import setup
 
+with open("VERSION", "r") as fh:
+    version = fh.read()
+
 setup(
-    name="ffq-api",
-    install_requires=[
-        "fastapi>=0.68.0",
-        "pydantic>=1.8.0",
-        "uvicorn>=0.15.0",
-        "ffq>=0.2.1",
-    ],
+    version=version
 )

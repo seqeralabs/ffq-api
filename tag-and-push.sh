@@ -30,7 +30,7 @@ ENTERPRISE=${ENTERPRISE:-$(git show -s --format='%s' | $SED -rn 's/.*\[(enterpri
 MARKETPLACE=${MARKETPLACE:-$(git show -s --format='%s' | $SED -rn 's/.*\[(marketplace)\].*/\1/p')}
 
 if [[ $RELEASE ]]; then
-  # take the version from the `build.gradle` file
+  # take the version from the `VERSION` file
   TAG=v$(cat VERSION)
   [[ $FORCE == 'force' ]] && FORCE='-f'
   # tag repo

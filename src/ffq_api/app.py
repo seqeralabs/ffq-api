@@ -1,11 +1,14 @@
 # uvicorn ffq_api.app:app --reload
 
 import argparse
+from datetime import datetime
 from enum import Enum
 import re
 from typing import Union
 
 from fastapi import FastAPI, Request
+from . import __version__
+from ffq import __version__ as ffq_version
 from ffq import main as ffq_main
 
 # Build an Enum class for FastAPI that dynamically
@@ -25,6 +28,10 @@ def read_root(request: Request):
     return {
         "message": "Welcome to the ffq API",
         "documentation_url": f"{request.url._url}docs",
+        "meta": {
+            "ffq_api_version": __version__,
+            "ffq_version": ffq_version,
+        },
     }
 
 
@@ -38,6 +45,7 @@ def read_item(
     ncbi: bool = False,
     level: Union[int, None] = None,
 ):
+    request_start = datetime.now()
     accessions = re.split(";| |,", accession_str)
 
     args = argparse.Namespace()
@@ -52,4 +60,25 @@ def read_item(
     args.split = False  # Split output into separate files by accession
     args.verbose = False  # Print debugging information
 
-    return ffq_main.run_ffq(args)
+    results = ffq_main.run_ffq(args)
+    request_finish = datetime.now()
+    results["meta"] = {
+        "ffq_api_version": __version__,
+        "ffq_version": ffq_version,
+        "query": {
+            "IDs": accession_str,
+            "search_type": search_type,
+            "level": level,
+            "ftp": ftp,
+            "aws": aws,
+            "gcp": gcp,
+            "ncbi": ncbi,
+        },
+        "request": {
+            "start": request_start.isoformat(),
+            "finish": request_finish.isoformat(),
+            "duration_seconds": (request_finish - request_start).total_seconds(),
+        },
+    }
+
+    return results
