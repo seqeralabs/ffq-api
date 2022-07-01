@@ -11,7 +11,7 @@ A minimal wrapper to make [ffq](https://github.com/pachterlab/ffq) searches avai
 > ```
 > The manuscript is available here: <https://doi.org/10.1101/2022.05.18.492548>.
 
-For more information about `ffq`, please visit the GitHub repository: <https://github.com/pachterlab/ffq>
+For more information about `ffq`, please visit the GitHub repository: <https://github.com/pachterlab/ffq>.
 
 ## Get started
 
@@ -55,9 +55,11 @@ The log should tell you the URL, but it's typically [`http://127.0.0.1:8000`](ht
 
 You can find the interactive API documentation at the URL [`/docs`](http://127.0.0.1:8000/docs).
 
-## Cite
+## Credits
 
-If you use this tool, please cite [`ffq`](https://github.com/pachterlab/ffq) which powers the results:
+The `ffq` is deloped and maintained by [Pachter lab](https://pachterlab.github.io/). 
+
+If you use this API, please cite [`ffq`](https://github.com/pachterlab/ffq) which powers the results:
 
 ```bibtex
 @article{galvez2022metadata,
