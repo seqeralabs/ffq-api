@@ -1,6 +1,6 @@
 # ffq-api
 
-A minimal wrapper to make [ffq](https://github.com/pachterlab/ffq) searches available via an API.
+A minimal wrapper to make [ffq](https://github.com/pachterlab/ffq) searches available via a REST API.
 
 > `ffq` receives an accession and returns the metadata for that accession as well as the metadata for all downstream accessions following the connections between GEO, SRA, EMBL-EBI, DDBJ, and Biosample.
 >
