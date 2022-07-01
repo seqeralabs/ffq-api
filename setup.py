@@ -1,3 +1,8 @@
 from setuptools import setup
 
-setup()
+with open("VERSION", "r") as fh:
+    version = fh.read()
+
+setup(
+    version=version
+)

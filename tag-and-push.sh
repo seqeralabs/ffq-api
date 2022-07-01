@@ -13,7 +13,7 @@
 
 # Tag and and push the the GitHub repo and Docker images
 #
-# - The tag is taken from the `VERSION` file in the project src
+# - The tag is taken from the `VERSION` file in the project root
 # - The tagging is enabled using putting the string `[release]` in the
 #   commit comment
 # - Use the string `[force release]` to override existing tag/images
@@ -31,7 +31,7 @@ MARKETPLACE=${MARKETPLACE:-$(git show -s --format='%s' | $SED -rn 's/.*\[(market
 
 if [[ $RELEASE ]]; then
   # take the version from the `VERSION` file
-  TAG=v$(cat ../src/ffq_api/VERSION)
+  TAG=v$(cat VERSION)
   [[ $FORCE == 'force' ]] && FORCE='-f'
   # tag repo
   git tag $TAG $FORCE

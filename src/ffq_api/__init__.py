@@ -2,7 +2,6 @@
 ffq-api is an API to retrieve metadata about biological data from various sources.
 """
 
-from pathlib import Path
+from importlib.metadata import version
 
-with open(Path(__file__).parent / "VERSION", "r") as fh:
-    __version__ = fh.read()
+__version__ = version('ffq-api')

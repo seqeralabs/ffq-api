@@ -37,7 +37,7 @@ jobs:
         if: "contains(github.event.head_commit.message, '[release]')"
         shell: bash
         run: |
-          bash ./.github/tag-and-push.sh
+          bash tag-and-push.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GH_SEQERA_TOKEN }}
 
